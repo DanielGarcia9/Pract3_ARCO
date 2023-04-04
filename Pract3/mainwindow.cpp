@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //QString filePath = QFileDialog::getOpenFileName(this, "Selecciona un archivo", "/home/");  Para seleccionar archivo
 }
 
 MainWindow::~MainWindow()
