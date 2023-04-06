@@ -26,8 +26,10 @@ filtrar::~filtrar()
 void MainWindow::on_pushButton_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, "Selecciona un archivo", "/home/", tr("JPEG (*.jpg);;PNG (*.png)"));
-    Mat image = imread(filePath.toStdString(), IMREAD_COLOR);
+    QString outputFilePath = QFileDialog::getSaveFileName(nullptr, "Guardar imagen", "/home/");
+
     auto start = high_resolution_clock::now();
+    Mat image = imread(filePath.toStdString(), IMREAD_COLOR);
     int filas = image.rows;
     int columnas = image.cols;
 
@@ -43,12 +45,12 @@ void MainWindow::on_pushButton_clicked()
 
       }
     }
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
-    QString outputFilePath = QFileDialog::getSaveFileName(nullptr, "Guardar imagen", "/home/");
-    //Elegir todo al principio
+
     string outputDirStr = outputFilePath.toStdString();
     outputDirStr = outputDirStr + ".jpg";
-    cout << "Tiempo de ejecución: " << duration.count() << " microsegundos" << endl;
     imwrite(outputDirStr, image);
+
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(stop - start);
+    cout << "Tiempo de ejecución: " << duration.count() << " microsegundos" << endl;
 }
