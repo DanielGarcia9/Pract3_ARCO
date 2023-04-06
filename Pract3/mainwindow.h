@@ -14,6 +14,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+     void on_buttonPal();
+    void on_buttonImg();
 
 private:
     Ui::MainWindow *ui;
