@@ -4,9 +4,12 @@
 #include <QFileDialog>
 #include <QString>
 #include <chrono>
+#include <vector>
+#include <algorithm>
 
 using namespace cv;
 using namespace std::chrono;
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -45,10 +48,44 @@ void MainWindow::on_pushButton_clicked()
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
     QString outputFilePath = QFileDialog::getSaveFileName(nullptr, "Guardar imagen", "/home/");
-
-    std::string outputDirStr = outputFilePath.toStdString();
+    //Elegir todo al principio
+    string outputDirStr = outputFilePath.toStdString();
     outputDirStr = outputDirStr + ".jpg";
-    std::cout << "Tiempo de ejecución: " << duration.count() << " microsegundos" << std::endl;
+    cout << "Tiempo de ejecución: " << duration.count() << " microsegundos" << endl;
     imwrite(outputDirStr, image);
+}
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QString filePath = QFileDialog::getOpenFileName(this, "Selecciona un archivo", "/home/", tr("TXT (*.txt)"));
+    string fileP = filePath.toStdString();
+    ifstream file(fileP);
+
+        if (!file)
+        {
+            cerr << "No se pudo abrir el archivo" << endl;
+        }
+
+        vector<string> words;
+            string word;
+            while (file >> word)
+            {
+                words.push_back(word);
+            }
+
+    file.close();
+    sort(words.begin(), words.end());
+    
+    //Cambiar path q sino hay lio xd
+    ofstream file2(fileP);
+
+    for (const string& word : words)
+        {
+            file2 << word << endl;
+        }
+
+        file2.close();
+
 }
 
