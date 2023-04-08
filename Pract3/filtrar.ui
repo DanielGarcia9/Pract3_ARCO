@@ -38,7 +38,7 @@
       <x>10</x>
       <y>120</y>
       <width>261</width>
-      <height>376</height>
+      <height>399</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
@@ -49,13 +49,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>TIEMPO 2</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QTextBrowser" name="textBrowser">
        <property name="sizePolicy">
@@ -63,6 +56,13 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>TIEMPO 2</string>
        </property>
       </widget>
      </item>
@@ -160,7 +160,6 @@
      <font>
       <family>FreeMono</family>
       <pointsize>20</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -184,7 +183,7 @@
    <widget class="QLabel" name="label_8">
     <property name="geometry">
      <rect>
-      <x>490</x>
+      <x>510</x>
       <y>290</y>
       <width>81</width>
       <height>41</height>
@@ -197,6 +196,32 @@
     </property>
     <property name="text">
      <string>MEDIA:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>100</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>(ms)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>310</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>(ms)</string>
     </property>
    </widget>
   </widget>

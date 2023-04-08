@@ -33,8 +33,9 @@ filtrar::~filtrar()
 
 void filtrar::on_pushButton_clicked()
 {
-    filePath = QFileDialog::getOpenFileName(this, "Selecciona un archivo", "/home/", tr("JPEG (.jpg);;PNG (.png)"));
+    filePath = QFileDialog::getOpenFileName(this, "Selecciona un archivo", "/home/", tr("JPEG (*.jpg);;PNG (*.png)"));
     exitPath = QFileDialog::getSaveFileName(nullptr, "Guardar imagen", "/home/");
+
 
 }
 
@@ -62,6 +63,7 @@ void filtrar::on_pushButton_clicked_1()
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
     float time = duration.count();
+    time = time/1000;
     QString tiempo = QString::number(time);
     count++;
     switch(count){

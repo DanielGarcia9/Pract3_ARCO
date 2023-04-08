@@ -71,6 +71,7 @@ void ordenar::on_pushButton_clicked_1()
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
     float time = duration.count();
+    time = time/1000;
     QString tiempo = QString::number(time);
     count++;
     switch(count){
@@ -93,8 +94,6 @@ void ordenar::on_pushButton_clicked_1()
         calcularMedia();
         break;
     }
-
-    //cout << "Tiempo de ejecución: " << duration.count() << " microsegundos" << endl;
 
 }
 
