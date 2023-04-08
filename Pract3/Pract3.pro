@@ -9,13 +9,19 @@ LIBS += -lopencv_stitching -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    filtrar.cpp \
+    ordenar.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    filtrar.h \
+    ordenar.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    filtrar.ui \
+    ordenar.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

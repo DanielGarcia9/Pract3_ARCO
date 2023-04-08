@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+#include "ordenar.h"
+#include "filtrar.h"
 #include "./ui_mainwindow.h"
 #include <opencv2/opencv.hpp>
 #include <QFileDialog>
@@ -28,8 +30,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_buttonPal()
 {
     //this->setEnabled (false);
-    Ordenacion *ordenar = new Ordenacion(this);
-    ordenar->show();
+    ordenar *ordena = new ordenar(this);
+    ordena->show();
 }
 
 void MainWindow::on_buttonImg()
