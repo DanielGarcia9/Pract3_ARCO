@@ -14,11 +14,17 @@ class ordenar : public QMainWindow
 public:
     explicit ordenar(QWidget *parent = 0);
     ~ordenar();
-    void on_pushButton_2_clicked();
+    void on_pushButton_clicked();
+    void calcularMedia();
+    void on_pushButton_clicked_1();
+
 
 
 private:
     Ui::ordenar *ui;
+    int count;
+    QString filePath;
+    QString exitPath;
 };
 
 #endif // ORDENAR_H
