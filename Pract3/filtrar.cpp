@@ -24,6 +24,7 @@ filtrar::filtrar(QWidget *parent) :
     count = 0;
     connect(ui->pushButton, &QPushButton::clicked, this, &filtrar::on_pushButton_clicked);
     connect(ui->pushButton_2, &QPushButton::clicked, this, &filtrar::on_pushButton_clicked_1);
+    connect(ui->pushButton_3, &QPushButton::clicked, this, &filtrar::on_pushButton_clicked_3);
 }
 
 filtrar::~filtrar()
@@ -34,9 +35,7 @@ filtrar::~filtrar()
 void filtrar::on_pushButton_clicked()
 {
     filePath = QFileDialog::getOpenFileName(this, "Selecciona un archivo", "/home/", tr("JPEG (*.jpg);;PNG (*.png)"));
-    exitPath = QFileDialog::getSaveFileName(nullptr, "Guardar imagen", "/home/");
-
-
+    exitPath = QFileDialog::getExistingDirectory(this, "Selecciona un directorio para guardar la imagen", "/home/");
 }
 
 void filtrar::on_pushButton_clicked_1()
@@ -57,9 +56,12 @@ void filtrar::on_pushButton_clicked_1()
             pixelValue[0] = b*1.5;
         }
     }
+
     string outputDirStr = exitPath.toStdString();
-    outputDirStr = outputDirStr + ".jpg";
-    imwrite(outputDirStr, image);
+    string fileName = QFileInfo(QString::fromStdString(filePath.toStdString())).baseName().toStdString(); // Obtener el nombre del archivo de entrada sin la extensión
+    string outputFilePath = outputDirStr + "/" + fileName + "_filtrado.jpg"; // Componer la ruta completa del archivo de salida
+    imwrite(outputFilePath, image); // Guardar la imagen filtrada en el directorio seleccionado con un nombre modificado
+
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
     float time = duration.count();
@@ -105,3 +107,15 @@ void filtrar::calcularMedia(){
     ui->textBrowser_6->setText(tiempo);
 
 }
+void filtrar::on_pushButton_clicked_3 (){
+    count = 0;
+    filePath="";
+    exitPath="";
+    ui->textBrowser->setText ("");
+    ui->textBrowser_2->setText ("");
+    ui->textBrowser_3->setText ("");
+    ui->textBrowser_4->setText ("");
+    ui->textBrowser_5->setText ("");
+    ui->textBrowser_6->setText ("");
+}
+

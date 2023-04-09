@@ -16,6 +16,7 @@ public:
     ~filtrar();
     void on_pushButton_clicked();
     void on_pushButton_clicked_1();
+    void on_pushButton_clicked_3();
     void calcularMedia();
 
 private:

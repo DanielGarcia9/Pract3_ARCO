@@ -19,10 +19,10 @@ ordenar::ordenar(QWidget *parent) :
 {
     ui->setupUi(this);
     filePath="";
-    exitPath="";
     count = 0;
     connect(ui->pushButton, &QPushButton::clicked, this, &ordenar::on_pushButton_clicked);
     connect(ui->pushButton_2, &QPushButton::clicked, this, &ordenar::on_pushButton_clicked_1);
+    connect(ui->pushButton_3, &QPushButton::clicked, this, &ordenar::on_pushButton_clicked_3);
 }
 
 ordenar::~ordenar()
@@ -32,37 +32,38 @@ ordenar::~ordenar()
 void ordenar::on_pushButton_clicked()
 {
     filePath = QFileDialog::getOpenFileName(this, "Selecciona un archivo", "/home/", tr("TXT (*.txt)"));
-    exitPath = QFileDialog::getOpenFileName(this, "Selecciona un archivo de guardado", "/home/", tr("TXT (*.txt)"));
+    //exitPath = QFileDialog::getOpenFileName(this, "Selecciona un archivo de guardado", "/home/", tr("TXT (*.txt)"));
 
 }
 void ordenar::on_pushButton_clicked_1()
 {
-
-
     string fileP = filePath.toStdString();
-    string exitP = exitPath.toStdString();
+    // string exitP = exitPath.toStdString();
     ifstream file(fileP);
 
-    if(!file){
+    if (!file)
+    {
         cout << "No se pudo abrir el archivo" << endl;
+        return; // Salir de la función si no se pudo abrir el archivo
     }
 
     auto start = high_resolution_clock::now();
 
-
     vector<string> words;
     string word;
 
-    while (file >> word){
+    while (file >> word)
+    {
         words.push_back(word);
     }
 
     file.close();
     sort(words.begin(), words.end());
 
-    ofstream file2(exitP);
+    // ofstream file2(exitP);
+    ofstream file2(fileP + "_ordenado.txt"); // Nombre del nuevo archivo ordenado
 
-    for(const string& word : words){
+    for (const string &word : words) {
         file2 << word << endl;
     }
 
@@ -113,4 +114,15 @@ void ordenar::calcularMedia(){
     QString tiempo = QString::number(media);
     ui->textBrowser_6->setText(tiempo);
 
+}
+
+void ordenar::on_pushButton_clicked_3 (){
+    count = 0;
+    filePath="";
+    ui->textBrowser->setText ("");
+    ui->textBrowser_2->setText ("");
+    ui->textBrowser_3->setText ("");
+    ui->textBrowser_4->setText ("");
+    ui->textBrowser_5->setText ("");
+    ui->textBrowser_6->setText ("");
 }

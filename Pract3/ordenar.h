@@ -17,14 +17,13 @@ public:
     void on_pushButton_clicked();
     void calcularMedia();
     void on_pushButton_clicked_1();
-
-
+    void on_pushButton_clicked_3();
 
 private:
     Ui::ordenar *ui;
     int count;
     QString filePath;
-    QString exitPath;
+
 };
 
 #endif // ORDENAR_H
