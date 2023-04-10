@@ -22,7 +22,7 @@ public:
 private:
     Ui::filtrar *ui;
     int count;
-    QString filePath;
+    QString dirPath;
     QString exitPath;
 };
 

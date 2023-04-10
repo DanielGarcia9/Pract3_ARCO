@@ -19,7 +19,7 @@ filtrar::filtrar(QWidget *parent) :
     ui(new Ui::filtrar)
 {
     ui->setupUi(this);
-    filePath="";
+    dirPath="";
     exitPath="";
     count = 0;
     connect(ui->pushButton, &QPushButton::clicked, this, &filtrar::on_pushButton_clicked);
@@ -34,33 +34,38 @@ filtrar::~filtrar()
 
 void filtrar::on_pushButton_clicked()
 {
-    filePath = QFileDialog::getOpenFileName(this, "Selecciona un archivo", "/home/", tr("JPEG (*.jpg);;PNG (*.png)"));
+    dirPath = QFileDialog::getExistingDirectory(this, "Selecciona un directorio que contenga imágenes", "/home/");
     exitPath = QFileDialog::getExistingDirectory(this, "Selecciona un directorio para guardar la imagen", "/home/");
 }
 
 void filtrar::on_pushButton_clicked_1()
 {
     auto start = high_resolution_clock::now();
-    Mat image = imread(filePath.toStdString(), IMREAD_COLOR);
-    int filas = image.rows;
-    int columnas = image.cols;
-
-    for (int i = 0; i < filas; i++) {
-        for (int j = 0; j < columnas; j++) {
-            cv::Vec3b& pixelValue =  image.at<cv::Vec3b>(i, j);
-            int r = pixelValue[2];
-            int g = pixelValue[1];
-            int b = pixelValue[0];
-            pixelValue[2] = r*0.5;
-            pixelValue[1] = g*0.5;
-            pixelValue[0] = b*1.5;
+    QStringList filters;
+    filters << "*.jpg" << "*.png";
+    QStringList imageFiles = QDir(dirPath).entryList(filters, QDir::Files);
+    for (const QString& imageFile : imageFiles) {
+        QString filePath = dirPath + "/" + imageFile;
+        Mat image = imread(filePath.toStdString(), IMREAD_COLOR);
+        if (!image.empty()) {
+            int filas = image.rows;
+            int columnas = image.cols;
+            for (int i = 0; i < filas; i++) {
+                for (int j = 0; j < columnas; j++) {
+                    cv::Vec3b& pixelValue =  image.at<cv::Vec3b>(i, j);
+                    int r = pixelValue[2];
+                    int g = pixelValue[1];
+                    int b = pixelValue[0];
+                    pixelValue[2] = r*0.5;
+                    pixelValue[1] = g*0.5;
+                    pixelValue[0] = b*1.5;
+                }
+            }
+            //QString exitPath = QFileDialog::getExistingDirectory(this, "Selecciona un directorio para guardar la imagen filtrada", "/home/");
+            QString exitFilePath = exitPath + "/" + imageFile;
+            imwrite(exitFilePath.toStdString(), image);
         }
     }
-
-    string outputDirStr = exitPath.toStdString();
-    string fileName = QFileInfo(QString::fromStdString(filePath.toStdString())).baseName().toStdString(); // Obtener el nombre del archivo de entrada sin la extensión
-    string outputFilePath = outputDirStr + "/" + fileName + "_filtrado.jpg"; // Componer la ruta completa del archivo de salida
-    imwrite(outputFilePath, image); // Guardar la imagen filtrada en el directorio seleccionado con un nombre modificado
 
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
@@ -109,7 +114,7 @@ void filtrar::calcularMedia(){
 }
 void filtrar::on_pushButton_clicked_3 (){
     count = 0;
-    filePath="";
+    dirPath="";
     exitPath="";
     ui->textBrowser->setText ("");
     ui->textBrowser_2->setText ("");
